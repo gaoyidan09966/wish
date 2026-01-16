@@ -1,0 +1,87 @@
+:root {
+    --primary: #4361ee;
+    --success: #4cc9f0;
+    --error: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9fd 100%);
+    color: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 2.5rem 2rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.25s ease;
+}
+.card:hover {
+    transform: translateY(-6px);
+}
+h2 {
+    font-size: 2.1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+/* 根据 result 内容动态改变颜色（你也可以在服务端加 class） */
+h2.success { color: #2d6a4f; }
+h2.error { color: #c1121f; }
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+.btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(67, 97, 238, 0.25);
+    border: none;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #3f37c9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(67, 97, 238, 0.35);
+}
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 14px rgba(67, 97, 238, 0.2);
+}
+@media (max-width: 480px) {
+    .card {
+        padding: 2rem 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+}

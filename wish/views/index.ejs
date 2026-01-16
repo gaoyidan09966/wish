@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星愿墙 | Galaxy Wishes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<canvas id="starfield"></canvas>
+  <header>
+    <h1>星愿墙</h1>
+    <p class="subtitle">Where Dreams Touch the Stars</p>
+  </header>
+  
+  <div id="container">
+    <% if(typeof wishes === 'undefined' || wishes.length === 0){ %>
+      <div class="wish-item" style="animation-delay: 0.1s;">
+        <strong>系统消息</strong>
+        <span class="content">暂时还没有愿望，请成为第一个点亮这片星空的人吧！</span>
+        <span class="wish-date">Now</span>
+      </div>
+    <% } else { %>
+      <% wishes.forEach((item, index) => { %>
+        <%# 在这里先计算好延迟数值，避免在 HTML 属性里写过于复杂的逻辑 %>
+        <% const delayTime = Math.min(index * 0.1, 1).toFixed(1); %>
+        
+        <div class="wish-item" style="--delay: <%= delayTime %>s; animation-delay: var(--delay);">
+          <strong><%= item.name %></strong>
+          <span class="content"><%= item.content %></span>
+          <span class="wish-date">
+            <i class="far fa-clock"></i>
+            <%= new Date(item.createdAt).toLocaleString('zh-CN', { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: false 
+            }).replace(/\//g, '.') %>
+          </span>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <button class="fab-btn" aria-label="添加愿望" onclick="toggleModal()">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <div class="modal-overlay" id="wishModal" aria-hidden="true">
+    <div class="modal-content" role="dialog">
+      <button class="close-modal" aria-label="关闭模态框" onclick="toggleModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="modal-title">许下心愿</h2>
+      <form id="wish-form">
+        <div class="input-group">
+          <input type="text" id="name" name="name" placeholder=" " required autocomplete="off" maxlength="50">
+          <label for="name">你的名字</label>
+        </div>
+        <div class="input-group">
+          <textarea id="content" name="content" placeholder=" " required maxlength="500"></textarea>
+          <label for="content">写下你的愿望... (它将化作流星)</label>
+        </div>
+        <button type="submit" class="submit-btn">
+          <span>发送到星空</span> <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <script src="/js/index.js"></script>
+</body>
+</html>
